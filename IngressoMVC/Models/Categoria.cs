@@ -11,5 +11,7 @@ namespace IngressoMVC.Models
         public DateTime DataCadastro { get; set; }
         public DateTime DataAlteracao { get; set; }
         public string Nome { get; set; }
+
+        public List<FilmeCategoria> FilmesCategorias { get; set; }
     }
 }

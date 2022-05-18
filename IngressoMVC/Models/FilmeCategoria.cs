@@ -5,15 +5,17 @@ using System.Threading.Tasks;
 
 namespace IngressoMVC.Models
 {
-    public class Cinema : IEntidade
+    public class FilmeCategoria : IEntidade
     {
         public int Id { get; set; }
         public DateTime DataCadastro { get; set; }
         public DateTime DataAlteracao { get; set; }
-        public string Nome { get; set; }
-        public string Descricao { get; set; }
-        public string LogoURL { get; set; }
 
-        public List<Filme> Filmes { get; set; }
+        //RELACIONAMENTOS
+        public int FilmeId { get; set; }
+        public Filme Filme{ get; set; }
+
+        public int CategoriaId { get; set; }
+        public Categoria Categoria { get; set; }
     }
 }
