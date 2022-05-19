@@ -10,21 +10,18 @@ namespace IngressoMVC.Models
     {
         public Filme(string titulo, string descricao, decimal preco, string imageURL)
         {
-            DataCadastro = DateTime.Now;
-            DataAlteracao = DataCadastro;
             Titulo = titulo;
             Descricao = descricao;
             Preco = preco;
-            ImageURL = imageURL;
         }
 
         public int Id { get; set; }
         public DateTime DataCadastro { get; set; }
         public DateTime DataAlteracao { get; set; }
-        public string Titulo { get; set; }
-        public string Descricao { get; set; }
-        public decimal Preco { get; set; }
-        public string ImageURL { get; set; }
+        public string Titulo { get; private set; }
+        public string Descricao { get; private set; }
+        public decimal Preco { get; private set; }
+        public string ImageURL { get; private set; }
 
         #region Relacionamentos
         //RELACIONAMENTOS
@@ -39,5 +36,14 @@ namespace IngressoMVC.Models
 
 
         #endregion
+
+        public void AlteraPreco(decimal novoPreço)
+        {
+            if (novoPreço < 0)
+            {
+                return;
+            }
+            Preco = novoPreço;
+        }
     }
 }

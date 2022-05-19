@@ -8,6 +8,12 @@ namespace IngressoMVC.Models
 {
     public class FilmeCategoria : IEntidade
     {
+        public FilmeCategoria(int filmeId, int categoriaId)
+        {
+            FilmeId = filmeId;
+            CategoriaId = categoriaId;
+        }
+
         public int Id { get; set; }
         public DateTime DataCadastro { get; set; }
         public DateTime DataAlteracao { get; set; }
