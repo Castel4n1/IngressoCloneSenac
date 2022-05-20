@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IngressoMVC.Models
 {
-    public class Artista : IEntidade
+    public abstract class Artista : IEntidade
     {
         public Artista(string nome, string bio, string fotoPerfilURL)
         {

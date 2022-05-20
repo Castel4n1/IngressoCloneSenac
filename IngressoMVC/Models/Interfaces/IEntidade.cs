@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace IngressoMVC.Models
+namespace IngressoMVC.Models.Interfaces
 {
     public interface IEntidade
     {
