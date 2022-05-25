@@ -1,0 +1,31 @@
+﻿@model IEnumerable<Ator>
+
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+
+        <table class="table">
+
+            <thead>
+                <tr>
+                    <th>Foto de Perfil</th>
+                    <th>Nome</th>
+                    <th>Biografia</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var ator in Model)
+                {
+                    
+                    <tr>
+                        <td class="align-middle"><img src="@ator.FotoPerfilURL" style="max-width:100px" alt="@ator.Nome" /> imagem.jpg</td>
+                        <td class="align-middle"> @ator.Nome</td>
+                        <td class="align-middle"> @ator.Bio</td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+
+</div>

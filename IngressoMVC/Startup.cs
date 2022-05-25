@@ -54,6 +54,8 @@ namespace IngressoMVC
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            InicializadorDeDados.Inicializar(app);
         }
     }
 }
