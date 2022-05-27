@@ -1,12 +1,25 @@
 ﻿@model IEnumerable<Ator>
 
 <div class="row">
-    <div class="col-md-8 offset-md-2">
+    <div class="col-md-10 offset-md-1 text-danger text-center">
+        <h1> Atores 
+        -
 
-        <table class="table">
+        <a class="btn btn-dark" href="#">
+            Cadastrar
+        </a>
+        </h1>
+
+        <div class="col-12 mx-1">
+            <input class="form-control" type="text" name="nome" id="nome" placeholder="Buscar"/>
+        </div>
+
+        <br />
+        <table class="table table-striped">
 
             <thead>
                 <tr>
+                    <th> Ações</th>
                     <th>Foto de Perfil</th>
                     <th>Nome</th>
                     <th>Biografia</th>
@@ -18,10 +31,34 @@
                 {
                     
                     <tr>
-                        <td class="align-middle"><img src="@ator.FotoPerfilURL" style="max-width:100px" alt="@ator.Nome" /> imagem.jpg</td>
+                        <td>
+                            <div class="d-flex flex-column">
+                                
+                                <a class="btn btn-primary" href="#">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+
+                                </a>
+                               
+                                <a class="btn btn-danger mt-1" href="#">
+                                    <i class="fa-solid fa-trash"></i>
+
+                                </a>
+                                
+                                <a class="btn btn-success mt-1">
+                                    <i class="fa-solid fa-eye"></i>
+
+                                </a>
+                            </div>
+                        </td>
+                        
+
+                        <td class="align-middle">
+                            <img src="@ator.FotoPerfilURL" style="max-width:100px" alt="@ator.Nome"/> 
+                        </td>
+
                         <td class="align-middle"> @ator.Nome</td>
                         <td class="align-middle"> @ator.Bio</td>
-                    </tr>
+                   </tr>
                 }
             </tbody>
 

@@ -30,9 +30,9 @@ namespace IngressoMVC.Data
                 {
                     context.Atores.AddRange(new List<Ator>()
                     {
-                        new Ator("Robert Downey Jr.", "Bio desc...","https://www.themoviedb.org/person/3223-robert-downey-jr?language=pt-BR#"),
-                        new Ator("Henry Cavill","Bio desc...","https://www.themoviedb.org/person/73968-henry-cavill?language=pt-BR#"),
-                        new Ator("Gal Gadot","Bio desc...","https://www.themoviedb.org/person/90633-gal-gadot?language=pt-BR#")
+                        new Ator("Robert Downey Jr.", "Bio desc...","https://www.themoviedb.org/t/p/w300_and_h450_bestv2/5qHNjhtjMD4YWH3UP0rm4tKwxCL.jpg"),
+                        new Ator("Henry Cavill","Bio desc...","https://www.themoviedb.org/t/p/w300_and_h450_bestv2/hErUwonrQgY5Y7RfxOfv8Fq11MB.jpg"),
+                        new Ator("Gal Gadot","Bio desc...","https://www.themoviedb.org/t/p/w300_and_h450_bestv2/plLfB60M5cJrnog8KvAKhI4UJuk.jpg")
 
                     });
                 }
