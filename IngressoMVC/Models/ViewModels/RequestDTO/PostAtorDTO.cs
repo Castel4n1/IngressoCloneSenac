@@ -7,8 +7,8 @@ namespace IngressoMVC.Models.ViewModels.RequestDTO
 {
     public class PostAtorDTO
     {
-        public string Nome { get; private set; }
-        public string Bio { get; private set; }
-        public string FotoPerfilURL { get; private set; }
+        public string Nome { get; set; }
+        public string Bio { get; set; }
+        public string FotoPerfilURL { get; set; }
     }
 }
