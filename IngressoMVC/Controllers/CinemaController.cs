@@ -20,5 +20,18 @@ namespace IngressoMVC.Controllers
         {
             return View(_context.Cinemas);
         }
+        public IActionResult Criar()
+        {
+            return View();
+        }
+
+        public IActionResult Atualizar(int id)
+        {
+            return View();
+        }
+        public IActionResult Deletar(int id)
+        {
+            return View();
+        }
     }
 }

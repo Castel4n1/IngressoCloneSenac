@@ -19,11 +19,23 @@ namespace IngressoMVC.Controllers
 
         //comunicação com o banco de dados
 
-        [HttpGet]
 
         public IActionResult Index()
         {
             return View(_context.Produtores);
+        }
+        public IActionResult Criar()
+        {
+            return View();
+        }
+
+        public IActionResult Atualizar(int id)
+        {
+            return View();
+        }
+        public IActionResult Deletar(int id)
+        {
+            return View();
         }
     }
 }
