@@ -68,9 +68,12 @@ namespace IngressoMVC.Controllers
             return View();
         }
 
+        
         public IActionResult Deletar(int id){
             return View();
         }
+
+
 
     }
 }
