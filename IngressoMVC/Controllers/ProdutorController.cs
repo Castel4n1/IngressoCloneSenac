@@ -32,6 +32,10 @@ namespace IngressoMVC.Controllers
         [HttpPost]
         public IActionResult Criar(PostProdutorDTO produtorDto)
         {
+            if (!ModelState.IsValid || !produtorDto.FotoPerfilURL.EndsWith(".jpg"))
+            {
+                return View(produtorDto);
+            }
 
             Produtor produtor = new Produtor(produtorDto.Nome, produtorDto.Bio, produtorDto.FotoPerfilURL);
             _context.Produtores.Add(produtor);

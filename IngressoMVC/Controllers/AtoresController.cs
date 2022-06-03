@@ -33,10 +33,10 @@ namespace IngressoMVC.Controllers
         public IActionResult Criar(PostAtorDTO atorDto)
         {
 
-
-            //Receber dados
             //Validar os dados
-
+            if (!ModelState.IsValid || !atorDto.FotoPerfilURL.EndsWith(".jpg")) {
+                return View(atorDto);
+            }
             //Instanciar um novo ator que recebe os dados
             Ator ator = new Ator(atorDto.Nome, atorDto.Bio, atorDto.FotoPerfilURL);
 

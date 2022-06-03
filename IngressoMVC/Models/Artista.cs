@@ -22,7 +22,7 @@ namespace IngressoMVC.Models
         public DateTime DataCadastro { get; set; }
         public DateTime DataAlteracao { get; set; }
 
-        [Display(Name = "Nome")]
+        [Display(Name = "Nome")] //DataAnnotations
         public string Nome { get; private set; }
         [Display(Name = "Biografia")]
         public string Bio { get; private set; }

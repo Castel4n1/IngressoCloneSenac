@@ -29,6 +29,8 @@ namespace IngressoMVC.Controllers
         [HttpPost]
         public IActionResult Criar(PostCategoriaDTO categoriaDto)
         {
+            if (!ModelState.IsValid) return View(categoriaDto);
+
             Categoria categoria = new Categoria(categoriaDto.Nome);
             _context.Categorias.Add(categoria);
             _context.SaveChanges();
