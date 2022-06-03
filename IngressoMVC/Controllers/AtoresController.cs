@@ -2,6 +2,7 @@
 using IngressoMVC.Models;
 using IngressoMVC.Models.ViewModels.RequestDTO;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace IngressoMVC.Controllers
 {
@@ -70,7 +71,22 @@ namespace IngressoMVC.Controllers
 
         
         public IActionResult Deletar(int id){
-            return View();
+            //Buscar o ator no banco
+            var result = _context.Atores.FirstOrDefault(a => a.Id == id);
+            //validação
+            if (result == null) { return View(); }
+            //passar o ator para view
+            return View(result);
+        }
+
+        [HttpDelete]
+        public IActionResult ConfirmarDeletar(int id)
+        {
+            var result = _context.Atores.FirstOrDefault(a => a.Id == id);
+            _context.Atores.Remove(result);
+            _context.SaveChanges();
+
+            return RedirectToAction(nameof(Index));
         }
 
 
