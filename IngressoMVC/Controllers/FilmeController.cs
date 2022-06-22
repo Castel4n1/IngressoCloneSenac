@@ -22,10 +22,17 @@ namespace IngressoMVC.Controllers
         {
             return View(_context.Filmes);
         }
+
+        public IActionResult Detalhes (int id){
+
+            return View(_context.Filmes.Find(id) );
+        }
+
         public IActionResult Criar()
         {
             return View();
         }
+
         [HttpPost]
         public IActionResult Criar(PostFilmeDTO filmeDto)
         {
@@ -36,12 +43,13 @@ namespace IngressoMVC.Controllers
             var produtor = _context.Produtores.FirstOrDefault(p => p.Nome == filmeDto.NomeProdutor);
 
             if (produtor == null) return View();
+
             Filme filme = new Filme(filmeDto.Titulo, filmeDto.Descricao, filmeDto.Preco, filmeDto.ImageURL, cinema.Id, produtor.Id);
 
             _context.Add(filme);
             _context.SaveChanges();
 
-            RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index));
 
             //Incluir Relacionamentos
         }
