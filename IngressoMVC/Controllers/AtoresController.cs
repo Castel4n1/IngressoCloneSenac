@@ -79,7 +79,7 @@ namespace IngressoMVC.Controllers
             return View(result);
         }
 
-        [HttpDelete]
+        [HttpPost, ActionName("ConfirmarDeletar")]
         public IActionResult ConfirmarDeletar(int id)
         {
             var result = _context.Atores.FirstOrDefault(a => a.Id == id);
