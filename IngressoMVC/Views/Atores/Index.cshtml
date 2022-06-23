@@ -10,7 +10,7 @@
             Atores
             -
 
-            <a class="btn btn-dark" href="#">
+            <a class="btn btn-dark" asp-action="Criar">
                 Cadastrar
             </a>
         </h1>
@@ -44,7 +44,7 @@
 
                                 </a>
 
-                                <a class="btn btn-danger mt-1" asp-action="Deletar" asp-route-id="ator.Id">
+                                <a class="btn btn-danger mt-1" asp-action="Deletar" asp-route-id="@ator.Id">
                                     <i class="fa-solid fa-trash"></i>
 
                                 </a>
