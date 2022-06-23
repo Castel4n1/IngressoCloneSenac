@@ -65,14 +65,42 @@ namespace IngressoMVC.Controllers
         //    return RedirectToAction(nameof(Index));
         //}
 
-        public IActionResult Atualizar(int id){
-            return View();
+        public IActionResult Atualizar(int? id){
+
+            // "?" serve para deixar o parametro opcional
+            if(id == null) 
+                return View();      
+
+            var result = _context.Atores.FirstOrDefault(a => a.Id == id);
+
+            if (result == null)
+                return View();
+
+            //passa o ator na view
+            return View(result);
         }
 
-        
+        [HttpPost]
+        public IActionResult Atualizar(int id, PostAtorDTO atorDto)
+        {
+            //busca ator no banco
+            var result = _context.Atores.FirstOrDefault(a => a.Id == id);
+            //atualiza no banco
+            result.AtualizarDados(atorDto.Nome, atorDto.Bio, atorDto.FotoPerfilURL);
+
+            //atualizar atores no banco
+            _context.Atores.Update(result);
+            //salva mudanças
+            _context.SaveChanges();
+
+            return RedirectToAction(nameof(Index));
+        }
+
+
         public IActionResult Deletar(int id){
             //Buscar o ator no banco
             var result = _context.Atores.FirstOrDefault(a => a.Id == id);
+           
             //validação
             if (result == null) { return View(); }
             //passar o ator para view
