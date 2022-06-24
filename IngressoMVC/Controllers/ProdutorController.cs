@@ -25,6 +25,8 @@ namespace IngressoMVC.Controllers
         {
             return View(_context.Produtores);
         }
+
+       
         public IActionResult Criar()
         {
             return View();
@@ -46,12 +48,45 @@ namespace IngressoMVC.Controllers
 
         public IActionResult Atualizar(int id)
         {
-            return View();
+            //Buscar o ator no banco
+            var result = _context.Produtores.FirstOrDefault(p => p.Id == id);
+            //Validação
+            if (result == null) 
+                return View();
+            //Passar o ator para View
+            return View(result);
         }
-        public IActionResult Deletar(int id)
+        [HttpPost]
+        public IActionResult ConfirmarAtualizar(int id, PostProdutorDTO produtorDto)
         {
-            return View();
+            var result = _context.Produtores.FirstOrDefault(p => p.Id == id);
+
+            result.AtualizarDados(produtorDto.Nome, produtorDto.Bio, produtorDto.FotoPerfilURL);
+            _context.Produtores.Update(result);
+
+            _context.SaveChanges();
+
+            return RedirectToAction(nameof(Index));
         }
 
+
+        public IActionResult Deletar(int id)
+        {
+            //Buscar o ator no banco
+            var result = _context.Produtores.FirstOrDefault(p => p.Id == id);
+            //validação
+            if (result == null) return View();
+            //passar o ator para view
+            return View(result);
+        }
+        [HttpPost]
+        public IActionResult ConfirmarDeletar(int id)
+        {
+            var result = _context.Produtores.FirstOrDefault(p => p.Id == id);
+            _context.Produtores.Remove(result);
+            _context.SaveChanges();
+
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
