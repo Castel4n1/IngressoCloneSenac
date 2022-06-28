@@ -26,7 +26,14 @@ namespace IngressoMVC.Controllers
             return View(_context.Produtores);
         }
 
-       
+
+        public IActionResult Detalhes(int id)
+        {
+            return View(_context.Produtores.Find(id));
+        }
+
+
+
         public IActionResult Criar()
         {
             return View();
