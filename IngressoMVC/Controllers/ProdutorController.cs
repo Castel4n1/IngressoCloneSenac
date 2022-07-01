@@ -1,6 +1,7 @@
 ﻿using IngressoMVC.Data;
 using IngressoMVC.Models;
 using IngressoMVC.Models.ViewModels.RequestDTO;
+using IngressoMVC.Models.ViewModels.ResponseDTO;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -29,7 +30,17 @@ namespace IngressoMVC.Controllers
 
         public IActionResult Detalhes(int id)
         {
-            return View(_context.Produtores.Find(id));
+            var result = _context.Produtores.Where(pd => pd.Id == id)
+                 .Select(pd => new GetProdutoresDTO()
+                 {
+                     Bio = pd.Bio,
+                     FotoPerfilURL = pd.FotoPerfilURL,
+                     Nome = pd.Nome,
+                     NomeFilmes = pd.Filmes.Select(fm => fm.Titulo).ToList(),
+                     FotoURLFilmes = pd.Filmes.Select(fm => fm.Titulo).ToList()
+                 }).FirstOrDefault();
+
+            return View(result);
         }
 
 

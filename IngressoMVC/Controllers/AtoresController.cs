@@ -22,17 +22,41 @@ namespace IngressoMVC.Controllers
         }
 
         public IActionResult Detalhes(int id)
-        {
-            var ator = _context.Atores.Find(id);
-
+        {           
             var result = _context.Atores.Where(at => at.Id == id)
                 .Select(at => new GetAtoresDTO()
                 {
                     Bio = at.Bio,
                     FotoPerfilURL = at.FotoPerfilURL,
                     Nome = at.Nome,
-                    NomeFilmes = at.AtoresFilmes.Select(fm => fm.Filme.Titulo).ToList()
+                    NomeFilmes = at.AtoresFilmes.Select(fm => fm.Filme.Titulo).ToList(),
+                    FotoURLFilmes = at.AtoresFilmes.Select(fm => fm.Filme.ImageURL).ToList()
                 }).FirstOrDefault();
+
+            //Metodo Didático
+            /*
+             * public iactionresult Detalhes(int id)
+             * {
+             * 
+             * var resultado = _context.Atores
+             *      .Include(af => af.AtoresFilmes)
+             *      .ThenInclude(f => f.Filme)
+             *      .FirstOrDefault(ator => ator.Id == id);
+             *      
+             * GetAtoresDTO atorDTO = new GetAtoresDTO()
+             * {
+             *      Nome = resultado.Nome,
+             *      Bio = resultado.Bio
+             *      FotoPerfilURL = resultado.FotoPerfilURL,
+             *      FotoURLFilmes = resultado.AtoresFilmes
+             *              .Select(af => af.Filme.ImageURL).ToList()
+             *      NomesFilmes = resultado.AtoresFilmes
+             *              .Select(af => af.Filme.Titulo).ToList()          
+             * };
+             * 
+             *      return View(atorDTO)
+             * }
+             */
 
             //passar um AtorGetDTO
             return View(result);
