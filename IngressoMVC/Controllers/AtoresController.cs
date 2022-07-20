@@ -33,6 +33,7 @@ namespace IngressoMVC.Controllers
                     FotoURLFilmes = at.AtoresFilmes.Select(fm => fm.Filme.ImageURL).ToList()
                 }).FirstOrDefault();
 
+            #region
             //Metodo Didático
             /*
              * public iactionresult Detalhes(int id)
@@ -57,7 +58,7 @@ namespace IngressoMVC.Controllers
              *      return View(atorDTO)
              * }
              */
-
+            #endregion
             //passar um AtorGetDTO
             return View(result);
         }

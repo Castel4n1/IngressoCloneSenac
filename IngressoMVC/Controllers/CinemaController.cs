@@ -43,11 +43,57 @@ namespace IngressoMVC.Controllers
 
         public IActionResult Atualizar(int id)
         {
-            return View();
+            var result = _context.Cinemas.FirstOrDefault(cinema => cinema.Id == id); //BUSCA NO BANCO DE DADOS
+
+            if (result == null)
+            {
+                return View("NotFound");
+            }
+
+            return View(result);
         }
+
+        [HttpPost]
+        public IActionResult Atualizar(int id, PostCinemaDTO cinemaDTO)
+        {
+            var result = _context.Cinemas.FirstOrDefault(cinema => cinema.Id == id);
+            //ATUALIZAR OS DADOS DO RESULTADO COM OS DA DTO
+            result.AtualizarDados(cinemaDTO.Nome, cinemaDTO.Descricao, cinemaDTO.LogoURL);
+
+            _context.Cinemas.Update(result);
+            _context.SaveChanges();
+
+            return RedirectToAction(nameof(Index));
+        }
+
         public IActionResult Deletar(int id)
         {
-            return View();
+
+            var result = _context.Cinemas.FirstOrDefault(cinema => cinema.Id == id); //BUSCA NO BANCO DE DADOS
+
+            if (result == null)
+            {
+                return View ("NotFound");
+            }
+
+            _context.SaveChanges();
+
+            return View(result);
+        }
+
+        [HttpPost, ActionName("Deletar")]
+        public IActionResult ConfirmarDeletar (int id)
+        {
+            var result = _context.Cinemas.FirstOrDefault(cinema => cinema.Id == id);
+            if(result == null)
+            {
+                return View("Not Found");
+            }
+
+            _context.Remove(result);
+            _context.SaveChanges();
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }
