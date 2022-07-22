@@ -2,6 +2,7 @@
 using IngressoMVC.Models;
 using IngressoMVC.Models.ViewModels.RequestDTO;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,17 @@ namespace IngressoMVC.Controllers
         public IActionResult Index()
         {
             return View(_context.Cinemas);
+        }
+
+        public IActionResult Detalhes(int id)
+        {
+            var cinema = _context.Cinemas
+                .Include(c => c.Filmes)
+                .FirstOrDefault(c => c.Id == id);
+
+            if (cinema == null) return View("NotFound");
+
+            return View(cinema);
         }
 
         public IActionResult Criar()
