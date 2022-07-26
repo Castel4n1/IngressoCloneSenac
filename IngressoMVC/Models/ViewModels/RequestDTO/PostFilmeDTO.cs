@@ -17,9 +17,10 @@ namespace IngressoMVC.Models.ViewModels.RequestDTO
         public string NomeCinema { get; set; }
 
         public string NomeProdutor { get; set; }
+        public int ProdutorId { get; set; }
 
-        public List<string> NomeAtores { get; set; }
-        public List<string> Categorias { get; set; }
+        public List<int> AtoresId { get; set; }
+        public List<int> CategoriasId { get; set; }
 
 
         #endregion
