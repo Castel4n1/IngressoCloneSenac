@@ -1,19 +1,67 @@
-﻿<div class="row">
-    <div class="col-md-12 text-danger text-left">
-        <h1>Filmes</h1>
+﻿@model IEnumerable<Filme>
 
-        <div class="col-12 mx-1">
-            <input class="form-control" type="text" name="nome" id="nome" placeholder="Buscar" />
+@{
+    ViewData["Title"] = "Lista de Filmes";
+}
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4 col-xs-6 border-primary mb-3">
+            <div class="card mb-3" style="max-width: 540px;">
+                <div class="row g-0">
+                    <div class="col-md-12">
+                        <div class="card-header text-white bg-info">
+                            <p class="card-text">
+                                <h5 class="card-title">
+                                    @item.Titulo
+                                </h5>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <img src="@item.ImageURL" width="100%" alt="@item.Titulo">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card-body">
+                            <p class="card-text">@item.Descricao</p>
+                            <p class="card-text"><b>Start Date: </b>@item.DataCadastro.ToString("dd MMM yy")</p>
+                            <p class="card-text"><b>End Date: </b>@item.DataAlteracao.ToString("dd MMM yy")</p>
+                            <p class="card-text ">
+                                <b>Status: </b>
+                                @if (DateTime.Now >= item.DataCadastro && DateTime.Now <= item.DataAlteracao)
+                                {
+                                    <span class="badge bg-success text-white">DISPONÍVEL</span>
+                                }
+                                else if (DateTime.Now > item.DataAlteracao)
+                                {
+                                    <span class="badge bg-danger text-white">EXPIRADO</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-primary text-white">AGUARDANDO</span>
+                                }
+                            </p>
+
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="card-footer ">
+                            <p class="card-text">
+                                <a class="btn btn-outline-primary float-right" asp-action="Detalhes" asp-route-id="@item.Id">
+                                    <i class="bi bi-eye-fill"></i> Detalhes
+                                </a>
+                                <a class="btn btn-success text-white @((DateTime.Now > item.DataAlteracao) ? "disabled" : "")"
+                                   asp-controller="Pedidos"
+                                   asp-action="AddItemAoCarrinho"
+                                   asp-route-id="@item.Id">
+                                    <i class="bi bi-cart-plus"></i> Adicionar ao Carrinho (Price @item.Preco.ToString("c"))
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <br />
-
-        <div>
-            <h3>Em Alta</h3>           
-            <h3>Em Cartaz</h3>
-            <h3>Noticias</h3>
-            <h3>Em breve</h3>
-        </div>
-
-    </div>
+    }
 </div>

@@ -16,11 +16,13 @@ namespace IngressoMVC.Models
             Nome = nome;
             Bio = bio;
             FotoPerfilURL = fotoPerfilURL;
+            DataCadastro = DateTime.Now;
+            DataAlteracao = DataCadastro;
         }
 
-        public int Id { get; set; }
-        public DateTime DataCadastro { get; set; }
-        public DateTime DataAlteracao { get; set; }
+        public int Id { get; private set; }
+        public DateTime DataCadastro { get;private set; }
+        public DateTime DataAlteracao { get; private set; }
 
         [Display(Name = "Nome")] //DataAnnotations
         public string Nome { get; private set; }

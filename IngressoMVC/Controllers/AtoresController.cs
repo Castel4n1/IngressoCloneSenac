@@ -112,7 +112,7 @@ namespace IngressoMVC.Controllers
             var result = _context.Atores.FirstOrDefault(a => a.Id == id);
 
             if (result == null)
-                return View();
+                return View("NotFound");
 
             //passa o ator na view
             return View(result);
