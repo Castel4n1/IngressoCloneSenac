@@ -33,6 +33,9 @@ namespace IngressoMVC.Controllers
                     FotoURLFilmes = at.AtoresFilmes.Select(fm => fm.Filme.ImageURL).ToList()
                 }).FirstOrDefault();
 
+            if (result == null)
+                return View("NotFound");
+
             #region
             //Metodo Didático
             /*
@@ -77,7 +80,10 @@ namespace IngressoMVC.Controllers
                 return View(atorDto);
             }
             //Instanciar um novo ator que recebe os dados
-            Ator ator = new Ator(atorDto.Nome, atorDto.Bio, atorDto.FotoPerfilURL);
+            Ator ator = new Ator(
+                atorDto.Nome, 
+                atorDto.Bio, 
+                atorDto.FotoPerfilURL );
 
             //Gravar esse ator no banco de dados
             _context.Atores.Add(ator);
@@ -86,6 +92,7 @@ namespace IngressoMVC.Controllers
             _context.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
+        #region
         //[HttpPost]
         //public IActionResult Criar([Bind("Nome,Bio,FotoPerfilURL")] Ator ator)
         //{
@@ -102,7 +109,7 @@ namespace IngressoMVC.Controllers
         //    _context.SaveChanges();
         //    return RedirectToAction(nameof(Index));
         //}
-
+        #endregion
         public IActionResult Atualizar(int? id){
 
             // "?" serve para deixar o parametro opcional
@@ -140,7 +147,7 @@ namespace IngressoMVC.Controllers
             var result = _context.Atores.FirstOrDefault(a => a.Id == id);
            
             //validação
-            if (result == null) { return View(); }
+            if (result == null)  return View("NotFound"); 
             //passar o ator para view
             return View(result);
         }

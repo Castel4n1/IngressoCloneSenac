@@ -25,8 +25,10 @@ namespace IngressoMVC.Controllers
 
         public IActionResult Detalhes(int id)
         {
+            var result = _context.Filmes.Find(id);
+            if (result == null) return View("NotFound");
 
-            return View(_context.Filmes.Find(id));
+            return View(result);
         }
 
         public IActionResult Criar()
@@ -45,20 +47,21 @@ namespace IngressoMVC.Controllers
                     filmeDto.Preco,
                     filmeDto.ImageURL,
                     _context.Produtores
-                        .FirstOrDefault(x => x.Id == filmeDto.ProdutorId).Id
+                        .FirstOrDefault(x => x.Id == filmeDto.ProdutorId).Id,
+                    _context.Cinemas.FirstOrDefault(c => c.Id == filmeDto.CinemaId).Id
                 );
 
             _context.Add(filme);
             _context.SaveChanges();
 
             //Incluir Relacionamentos
-            foreach (var atorId in filmeDto.AtoresId)
-            {
+            //foreach (var atorId in filmeDto.AtoresId)
+            //{
 
-                var novaCategoria = new FilmeCategoria(atorId, filme.Id);
-                _context.FilmesCategorias.Add(novaCategoria);
-                _context.SaveChanges();
-            }
+            //    var novaCategoria = new FilmeCategoria(atorId, filme.Id);
+            //    _context.FilmesCategorias.Add(novaCategoria);
+            //    _context.SaveChanges();
+            //}
 
             return RedirectToAction(nameof(Index));
         }

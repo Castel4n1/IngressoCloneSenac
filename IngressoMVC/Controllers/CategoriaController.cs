@@ -18,11 +18,20 @@ namespace IngressoMVC.Controllers
             _context = context;
         }
 
-        public IActionResult Index() => View(_context.Categorias);
+        public IActionResult Index() 
+            => View(_context.Categorias);
 
-        public IActionResult Detalhes(int id) => View(_context.Categorias.Find(id));
+        public IActionResult Detalhes(int id)
+        {
+            var result = _context.Categorias.Find(id);
 
-        public IActionResult Criar() => View();
+            if (result == null)
+                return View("NotFound");
+
+            return View(result);
+        }
+        public IActionResult Criar() 
+            => View();
 
         [HttpPost]
         public IActionResult Criar(PostCategoriaDTO categoriaDto)
@@ -39,12 +48,12 @@ namespace IngressoMVC.Controllers
         public IActionResult Atualizar(int? id)
         {
             if (id == null) 
-                return View();
+                return View("NotFound");
 
             var result = _context.Categorias.FirstOrDefault(c => c.Id == id);
 
             if(result == null)
-                return View();
+                return View("NotFound");
 
             return View(result);
         }
@@ -67,7 +76,7 @@ namespace IngressoMVC.Controllers
             var categoria = _context.Categorias.FirstOrDefault(c => c.Id == id);
 
             if (categoria == null)
-                return View();
+                return View("NotFound");
 
             return View(categoria);
         }
@@ -76,11 +85,9 @@ namespace IngressoMVC.Controllers
         {
             var categoria = _context.Categorias.FirstOrDefault(c => c.Id == id);
 
-            if (categoria == null)
-                return View();
-
             _context.Categorias.Remove(categoria);
             _context.SaveChanges();
+
             return RedirectToAction(nameof(Index));
         }
     }

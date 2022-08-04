@@ -40,6 +40,9 @@ namespace IngressoMVC.Controllers
                      FotoURLFilmes = pd.Filmes.Select(fm => fm.Titulo).ToList()
                  }).FirstOrDefault();
 
+            if (result == null)
+                return View("NotFound");
+
             return View(result);
         }
 
@@ -70,7 +73,7 @@ namespace IngressoMVC.Controllers
             var result = _context.Produtores.FirstOrDefault(p => p.Id == id);
             //Validação
             if (result == null) 
-                return View();
+                return View("NotFound");
             //Passar o ator para View
             return View(result);
         }
@@ -93,7 +96,7 @@ namespace IngressoMVC.Controllers
             //Buscar o ator no banco
             var result = _context.Produtores.FirstOrDefault(p => p.Id == id);
             //validação
-            if (result == null) return View();
+            if (result == null) return View("NotFound");
             //passar o ator para view
             return View(result);
         }
@@ -101,6 +104,7 @@ namespace IngressoMVC.Controllers
         public IActionResult ConfirmarDeletar(int id)
         {
             var result = _context.Produtores.FirstOrDefault(p => p.Id == id);
+
             _context.Produtores.Remove(result);
             _context.SaveChanges();
 

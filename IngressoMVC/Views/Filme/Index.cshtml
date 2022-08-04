@@ -5,6 +5,12 @@
 }
 
 <div class="row">
+    <div>
+        <a class="btn btn-secondary mt-1" asp-action="Criar">
+            <i class="fa-solid fa-eye"></i>
+            Criar
+        </a>
+    </div>
     @foreach (var item in Model)
     {
         <div class="col-md-4 col-xs-6 border-primary mb-3">
@@ -14,7 +20,7 @@
                         <div class="card-header text-white bg-info">
                             <p class="card-text">
                                 <h5 class="card-title">
-                                    @item.Titulo
+                                    @item.Titulo                                    
                                 </h5>
                             </p>
                         </div>
@@ -33,7 +39,7 @@
                                 {
                                     <span class="badge bg-success text-white">DISPONÍVEL</span>
                                 }
-                                else if (DateTime.Now > item.DataAlteracao)
+                                else if (DateTime.Now > item.DataAlteracao) 
                                 {
                                     <span class="badge bg-danger text-white">EXPIRADO</span>
                                 }
@@ -48,9 +54,23 @@
                     <div class="col-md-12">
                         <div class="card-footer ">
                             <p class="card-text">
-                                <a class="btn btn-outline-primary float-right" asp-action="Detalhes" asp-route-id="@item.Id">
-                                    <i class="bi bi-eye-fill"></i> Detalhes
-                                </a>
+                                    <div class="d-flex flex-column">
+                                        <a class="btn btn-success" asp-action="Atualizar" asp-route-id="@item.Id">
+                                            <i class="fa-solid fa-pen-to-square"></i>
+                                            Editar
+                                        </a>
+
+                                        <a class="btn btn-primary mt-1" asp-action="Detalhes" asp-route-id="@item.Id">
+                                            <i class="fa-solid fa-eye"></i>
+                                            Ver
+                                        </a>
+
+                                        <a class="btn btn-danger mt-1" asp-action="Deletar" asp-route-id="@item.Id">
+                                            <i class="fa-solid fa-trash-can"></i>
+                                            Excluir
+                                        </a>
+                                    </div>
+                                    <br />
                                 <a class="btn btn-success text-white @((DateTime.Now > item.DataAlteracao) ? "disabled" : "")"
                                    asp-controller="Pedidos"
                                    asp-action="AddItemAoCarrinho"
