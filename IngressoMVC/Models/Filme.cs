@@ -53,7 +53,7 @@ namespace IngressoMVC.Models
 
         #endregion
 
-        public void AlterarDados(string titulo, string descricao, string imageURL, decimal novoPreco)
+        public void AlterarDados(string titulo, string descricao, string imageURL, decimal novoPreco, int cinemaId, int produtorId)
         {
             if (titulo.Length < 3 || novoPreco < 0)           
                 return;
@@ -62,6 +62,8 @@ namespace IngressoMVC.Models
             Descricao = descricao;
             Preco = novoPreco;
             ImageURL = imageURL;
+            CinemaId = cinemaId;
+            ProdutorId = ProdutorId;
             DataCadastro = DateTime.Now;
             DataAlteracao = DataCadastro;
         }

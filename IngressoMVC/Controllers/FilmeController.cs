@@ -2,6 +2,7 @@
 using IngressoMVC.Models;
 using IngressoMVC.Models.ViewModels.RequestDTO;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,8 +26,13 @@ namespace IngressoMVC.Controllers
 
         public IActionResult Detalhes(int id)
         {
-            var result = _context.Filmes.Find(id);
-            if (result == null) return View("NotFound");
+            var result = _context.Filmes
+                .Include(p => p.Produtor)
+                .Include(c => c.Cinema)
+                .Include(fc => fc.FilmesCategorias).ThenInclude(c => c.Categoria)
+                .Include(af => af.AtoresFilmes).ThenInclude(a => a.Ator)
+                .FirstOrDefault(f => f.Id == id);
+
 
             return View(result);
         }
@@ -46,22 +52,27 @@ namespace IngressoMVC.Controllers
                     filmeDto.Descricao,
                     filmeDto.Preco,
                     filmeDto.ImageURL,
-                    _context.Produtores
-                        .FirstOrDefault(x => x.Id == filmeDto.ProdutorId).Id,
-                    _context.Cinemas.FirstOrDefault(c => c.Id == filmeDto.CinemaId).Id
+                    filmeDto.ProdutorId,
+                    filmeDto.CinemaId
                 );
 
             _context.Add(filme);
             _context.SaveChanges();
 
-            //Incluir Relacionamentos
-            //foreach (var atorId in filmeDto.AtoresId)
-            //{
+            //Relacionamentos
 
-            //    var novaCategoria = new FilmeCategoria(atorId, filme.Id);
-            //    _context.FilmesCategorias.Add(novaCategoria);
-            //    _context.SaveChanges();
-            //}
+            foreach (var categoriaId in filmeDto.CategoriasId)
+            {
+                var novaCategoria = new FilmeCategoria(filme.Id, categoriaId);
+                _context.FilmesCategorias.Add(novaCategoria);
+                _context.SaveChanges();
+            }
+            foreach(var atorId in filmeDto.AtoresId)
+            {
+                var novoAtor = new AtorFilme(atorId, filme.Id);
+                _context.AtoresFilmes.Add(novoAtor);
+                _context.SaveChanges();
+            }
 
             return RedirectToAction(nameof(Index));
         }
@@ -79,15 +90,16 @@ namespace IngressoMVC.Controllers
         public IActionResult Atualizar(int id, PostFilmeDTO filmeDto)
         {
             var result = _context.Filmes.FirstOrDefault(x => x.Id == id);
+
             if (!ModelState.IsValid)
                 return View(result);
 
-            result.AlterarDados(filmeDto.Titulo, filmeDto.Descricao, filmeDto.ImageURL, filmeDto.Preco);
+            result.AlterarDados(filmeDto.Titulo, filmeDto.Descricao, filmeDto.ImageURL, filmeDto.Preco, filmeDto.ProdutorId, filmeDto.CinemaId) ;
 
             _context.Update(result);
             _context.SaveChanges();
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index), result);
         }
         public IActionResult Deletar(int id)
         {
