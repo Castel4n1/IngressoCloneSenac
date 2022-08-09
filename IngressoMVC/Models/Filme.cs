@@ -8,17 +8,6 @@ namespace IngressoMVC.Models
 {
     public class Filme : IEntidade
     {
-        public Filme(string titulo, string descricao, decimal preco, string imageURL, int produtorId)
-        {
-            Titulo = titulo;
-            Descricao = descricao;
-            Preco = preco;
-            ImageURL = imageURL;
-            ProdutorId = produtorId;
-            DataCadastro = DateTime.Now;
-            DataAlteracao = DataCadastro;
-        }
-
         public Filme(string titulo, string descricao, decimal preco, string imageURL, int cinemaId, int produtorId)
         {
             Titulo = titulo;
@@ -26,9 +15,10 @@ namespace IngressoMVC.Models
             Preco = preco;
             ImageURL = imageURL;
             ProdutorId = produtorId;
+            CinemaId = cinemaId;
+
             DataCadastro = DateTime.Now;
             DataAlteracao = DataCadastro;
-            CinemaId = cinemaId;
         }
 
         public int Id { get; private set; }
@@ -55,7 +45,7 @@ namespace IngressoMVC.Models
 
         public void AlterarDados(string titulo, string descricao, string imageURL, decimal novoPreco, int cinemaId, int produtorId)
         {
-            if (titulo.Length < 3 || novoPreco < 0)           
+            if (titulo.Length < 1 || novoPreco < 0)           
                 return;
 
             Titulo = titulo;
@@ -64,8 +54,8 @@ namespace IngressoMVC.Models
             ImageURL = imageURL;
             CinemaId = cinemaId;
             ProdutorId = ProdutorId;
-            DataCadastro = DateTime.Now;
-            DataAlteracao = DataCadastro;
+
+            DataAlteracao = DateTime.Now;
         }
     }
 }

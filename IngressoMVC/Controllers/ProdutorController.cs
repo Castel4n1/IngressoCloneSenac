@@ -3,6 +3,7 @@ using IngressoMVC.Models;
 using IngressoMVC.Models.ViewModels.RequestDTO;
 using IngressoMVC.Models.ViewModels.ResponseDTO;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,20 +31,21 @@ namespace IngressoMVC.Controllers
 
         public IActionResult Detalhes(int id)
         {
-            var result = _context.Produtores.Where(pd => pd.Id == id)
-                 .Select(pd => new GetProdutoresDTO()
-                 {
-                     Bio = pd.Bio,
-                     FotoPerfilURL = pd.FotoPerfilURL,
-                     Nome = pd.Nome,
-                     NomeFilmes = pd.Filmes.Select(fm => fm.Titulo).ToList(),
-                     FotoURLFilmes = pd.Filmes.Select(fm => fm.Titulo).ToList()
-                 }).FirstOrDefault();
+            var resultado = _context.Produtores.Include(p => p.Filmes).FirstOrDefault(p => p.Id == id);
+            
+            if (resultado == null)
+                return View();
 
-            if (result == null)
-                return View("NotFound");
+            GetProdutorDto produtor = new GetProdutorDto()
+            {
+                Nome = resultado.Nome,
+                Bio = resultado.Bio,
+                FotoPerfilURL = resultado.FotoPerfilURL,
+                FotoURLFilmes = resultado.Filmes.Select(fm => fm.ImageURL).ToList(),
+                NomeFilmes = resultado.Filmes.Select(fm => fm.Titulo).ToList()
+            };
 
-            return View(result);
+            return View(produtor);
         }
 
 

@@ -1,37 +1,86 @@
-﻿@model IngressoMVC.Models.Filme
-
+﻿@model Filme
 
 @{
-    ViewData["Title"] = "Detalhes";
+    ViewData["Title"] = "Movie details";
 }
 
-<h1>Detalhes</h1>
+<div class="row">
+    <div class="col-md-8 offset-2">
+        <div class="card mb-12">
+            <div class="row g-0">
+                <div class="col-md-12">
+                    <div class="card-header text-white bg-info">
+                        <p class="card-text">
+                            <h5 class="card-title">
+                                @Model.Titulo
+                            </h5>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <img src="@Model.ImageURL" width="100%" alt="@Model.Titulo">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <p class="card-text">@Model.Descricao</p>
+                        <p class="card-text">
+                            <b>Cinema: </b>
+                            <a asp-controller="Cinemas" asp-action="Detalhes" asp-route-id="@Model.CinemaId">
+                                @Model.Cinema.Nome
+                            </a>
+                        </p>
+                        <p class="card-text">
+                            <b>Producer: </b>
+                            <a asp-controller="Produtores" asp-action="Detalhes" asp-route-id="@Model.ProdutorId">
+                                @Model.Produtor.Nome
+                            </a>
+                        </p>
+                        <p class="card-text"><b>Start Date: </b>@Model.DataCadastro.ToString("dd MMM yy")</p>
+                        <p class="card-text ">
+                            <b>Status: </b>                           
+                            @if (DateTime.Now >= Model.DataCadastro && DateTime.Now <= Model.DataAlteracao)
+                            {
+                                <span class="badge bg-success text-white">DISPONÍVEL</span>
+                            }
+                            else if (DateTime.Now > Model.DataAlteracao)
+                            {
+                                <span class="badge bg-danger text-white">EXPIRADO</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-primary text-white">AGUARDANDO</span>
+                            }
+                        </p>
+                        <p class="card-text">
+                            <b>Actors: </b>
+                            <hr />
+                            <div class="row">
+                                @foreach (var atore_filme in Model.AtoresFilmes)
+                                {
+                                    <div class="column text-center">
+                                        <img src="@atore_filme.Ator.FotoPerfilURL" style="max-width: 150px" />
+                                        <br />
+                                        <a asp-controller="Atores" asp-action="Detalhes" asp-route-id="@atore_filme.Ator.Id">@atore_filme.Ator.Nome</a>
+                                    </div>
+                                }
+                            </div>
+                        </p>
 
-<div>
-    <h4>Filme</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.DataCadastro)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.DataCadastro)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.DataAlteracao)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.DataAlteracao)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Titulo)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Titulo)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Atualizar" asp-route-id="@Model.Id">Atualizar</a> |
-    <a asp-action="Index">Lista de Filmes</a>
-</div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="card-footer">
+                        <p class="card-text">
+                            <a class="btn btn-outline-primary float-right" asp-action="Index">
+                                Back to List
+                            </a>
+                            <a class="btn btn-success text-white  @((DateTime.Now > Model.DataAlteracao) ? "disabled" : "")" 
+                               asp-controller="Orders" 
+                               asp-action="AddItemToShoppingCart" asp-route-id="@Model.Id"><i class="bi bi-cart-plus"></i> Add to Cart (Price @Model.Preco.ToString("c"))</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
