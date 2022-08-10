@@ -79,14 +79,14 @@ namespace IngressoMVC.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    DataCadastro = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DataAlteracao = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Titulo = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Descricao = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Preco = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     ImageURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DataLancamento = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DataEncerramento = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DataCadastro = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DataAlteracao = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CinemaId = table.Column<int>(type: "int", nullable: false),
                     ProdutorId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -136,10 +136,7 @@ namespace IngressoMVC.Migrations
                 columns: table => new
                 {
                     FilmeId = table.Column<int>(type: "int", nullable: false),
-                    CategoriaId = table.Column<int>(type: "int", nullable: false),
-                    Id = table.Column<int>(type: "int", nullable: false),
-                    DataCadastro = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DataAlteracao = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    CategoriaId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

@@ -163,15 +163,6 @@ namespace IngressoMVC.Migrations
                     b.Property<int>("CategoriaId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("DataAlteracao")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DataCadastro")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
                     b.HasKey("FilmeId", "CategoriaId");
 
                     b.HasIndex("CategoriaId");
