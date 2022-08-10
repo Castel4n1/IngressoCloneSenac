@@ -65,7 +65,7 @@ namespace IngressoMVC.Models
             Preco = novoPreco;
             ImageURL = imageURL;
             CinemaId = cinemaId;
-            ProdutorId = ProdutorId;
+            ProdutorId = produtorId;
             DataLancamento = lancamento;
             DataEncerramento = encerramento;
 

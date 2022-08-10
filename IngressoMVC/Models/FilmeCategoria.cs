@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace IngressoMVC.Models
 {
-    public class FilmeCategoria : IEntidade
+    public class FilmeCategoria
     {
         public FilmeCategoria(int filmeId, int categoriaId)
         {
@@ -15,9 +15,6 @@ namespace IngressoMVC.Models
             CategoriaId = categoriaId;
         }
 
-        public int Id { get; private set; }
-        public DateTime DataCadastro { get; private set; }
-        public DateTime DataAlteracao { get; private set; }
 
         //RELACIONAMENTOS
         

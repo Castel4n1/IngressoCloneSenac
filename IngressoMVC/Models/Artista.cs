@@ -16,8 +16,6 @@ namespace IngressoMVC.Models
             Nome = nome;
             Bio = bio;
             FotoPerfilURL = fotoPerfilURL;
-            DataCadastro = DateTime.Now;
-            DataAlteracao = DataCadastro;
         }
 
         public int Id { get; private set; }
