@@ -3,11 +3,7 @@
 <div class="row">
     <div class="col-md-10 offset-md-1">
         <h1>
-            Cinemas
-            -
-            <a class="btn btn-dark" asp-action="Criar">
-                Cadastrar
-            </a>
+            Cinemas - <a class="btn btn-dark" asp-action="Criar">Cadastrar</a>
         </h1>
 
         <div class="col-12 my-2">
@@ -34,12 +30,12 @@
                                     <i class="fa-solid fa-pen-to-square"></i>
                                     Editar
                                 </a>
-
+                               
                                 <a class="btn btn-primary mt-1" asp-action="Detalhes" asp-route-id="@cinema.Id">
                                     <i class="fa-solid fa-eye"></i>
                                     Ver
                                 </a>
-
+                                
                                 <a class="btn btn-danger mt-1" asp-action="Deletar" asp-route-id="@cinema.Id">
                                     <i class="fa-solid fa-trash-can"></i>
                                     Excluir
@@ -47,8 +43,7 @@
                             </div>
                         </td>
                         <td class="align-middle">
-                            <img src="@cinema.LogoURL" style="max-width:100px" alt="@cinema.Nome">
-                        </td>
+                            <img src="@cinema.LogoURL" style="max-width:100px" alt="@cinema.Nome"></td>
                         <td class="align-middle">@cinema.Nome</td>
                         <td class="align-middle">@cinema.Descricao</td>
                     </tr>

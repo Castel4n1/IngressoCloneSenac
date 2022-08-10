@@ -1,17 +1,12 @@
 ﻿@model IEnumerable<Produtor>
 
-@{
-    ViewData["Title"] = "Índice Produtor";
-}
-
 <div class="row">
     <div class="col-md-10 offset-md-1">
-        <h1>
-            Produtores
-            -
-            <a class="btn btn-dark" asp-action="Criar">
-                Cadastrar
-            </a>
+        <h1>Produtores 
+        -
+        <a class="btn btn-dark" asp-action="Criar">
+            Cadastrar
+        </a>
         </h1>
 
         <div class="col-12 my-2">
@@ -22,9 +17,9 @@
             <thead>
                 <tr>
                     <th>Ações</th>
-                    <th>Foto de Perfil</th>
-                    <th>Nome</th>
-                    <th>Biografia</th>
+                    <th>@Html.DisplayNameFor(model => model.FotoPerfilURL)</th>
+                    <th>@Html.DisplayNameFor(model => model.Nome)</th>
+                    <th>@Html.DisplayNameFor(model => model.Bio)</th>
                 </tr>
             </thead>
             <tbody>
@@ -38,12 +33,12 @@
                                     <i class="fa-solid fa-pen-to-square"></i>
                                     Editar
                                 </a>
-
+                               
                                 <a class="btn btn-primary mt-1" asp-action="Detalhes" asp-route-id="@produtor.Id">
                                     <i class="fa-solid fa-eye"></i>
                                     Ver
                                 </a>
-
+                                
                                 <a class="btn btn-danger mt-1" asp-action="Deletar" asp-route-id="@produtor.Id">
                                     <i class="fa-solid fa-trash-can"></i>
                                     Excluir
@@ -51,8 +46,7 @@
                             </div>
                         </td>
                         <td class="align-middle">
-                            <img src="@produtor.FotoPerfilURL" style="max-width:100px" alt="@produtor.Nome">
-                        </td>
+                            <img src="@produtor.FotoPerfilURL" style="max-width:100px" alt="@produtor.Nome"></td>
                         <td class="align-middle">@produtor.Nome</td>
                         <td class="align-middle">@produtor.Bio</td>
                     </tr>
