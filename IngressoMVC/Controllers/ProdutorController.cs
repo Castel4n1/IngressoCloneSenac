@@ -34,18 +34,9 @@ namespace IngressoMVC.Controllers
             var resultado = _context.Produtores.Include(p => p.Filmes).FirstOrDefault(p => p.Id == id);
             
             if (resultado == null)
-                return View();
+                return View("NotFound");
 
-            GetProdutoresDTO produtor = new GetProdutoresDTO()
-            {
-                Nome = resultado.Nome,
-                Bio = resultado.Bio,
-                FotoPerfilURL = resultado.FotoPerfilURL,
-                FotoURLFilmes = resultado.Filmes.Select(fm => fm.ImageURL).ToList(),
-                NomeFilmes = resultado.Filmes.Select(fm => fm.Titulo).ToList()
-            };
-
-            return View(produtor);
+            return View(resultado);
         }
 
 
@@ -54,10 +45,12 @@ namespace IngressoMVC.Controllers
         {
             return View();
         }
+
+
         [HttpPost]
         public IActionResult Criar(PostProdutorDTO produtorDto)
         {
-            if (!ModelState.IsValid || !produtorDto.FotoPerfilURL.EndsWith(".jpg"))
+            if (!ModelState.IsValid)
             {
                 return View(produtorDto);
             }
@@ -69,8 +62,10 @@ namespace IngressoMVC.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult Atualizar(int id)
+        public IActionResult Atualizar(int? id)
         {
+            if (id == null)
+                return View("NotFound");
             //Buscar o ator no banco
             var result = _context.Produtores.FirstOrDefault(p => p.Id == id);
             //Validação
@@ -80,13 +75,16 @@ namespace IngressoMVC.Controllers
             return View(result);
         }
         [HttpPost]
-        public IActionResult ConfirmarAtualizar(int id, PostProdutorDTO produtorDto)
+        public IActionResult Atualizar(int id, PostProdutorDTO produtorDto)
         {
             var result = _context.Produtores.FirstOrDefault(p => p.Id == id);
 
-            result.AtualizarDados(produtorDto.Nome, produtorDto.Bio, produtorDto.FotoPerfilURL);
-            _context.Produtores.Update(result);
+            if (ModelState.IsValid)
+                return View(result);
 
+            result.AtualizarDados(produtorDto.Nome, produtorDto.Bio, produtorDto.FotoPerfilURL);
+            
+            _context.Produtores.Update(result);
             _context.SaveChanges();
 
             return RedirectToAction(nameof(Index));
