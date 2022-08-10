@@ -72,7 +72,7 @@ namespace IngressoMVC.Controllers
         {
 
             //Validar os dados
-            if (!ModelState.IsValid || !atorDto.FotoPerfilURL.EndsWith(".jpg")) {
+            if (!ModelState.IsValid) {
                 return View(atorDto);
             }
             //Instanciar um novo ator que recebe os dados
@@ -86,6 +86,7 @@ namespace IngressoMVC.Controllers
 
             //Salvar as mudanças
             _context.SaveChanges();
+
             return RedirectToAction(nameof(Index));
         }
         #region
@@ -125,12 +126,18 @@ namespace IngressoMVC.Controllers
         public IActionResult Atualizar(int id, PostAtorDTO atorDto)
         {
             //busca ator no banco
-            var result = _context.Atores.FirstOrDefault(a => a.Id == id);
+            var ator = _context.Atores.FirstOrDefault(a => a.Id == id);
+
+            if (!ModelState.IsValid)
+            {
+                return View(ator);
+            }
+
             //atualiza no banco
-            result.AtualizarDados(atorDto.Nome, atorDto.Bio, atorDto.FotoPerfilURL);
+            ator.AtualizarDados(atorDto.Nome, atorDto.Bio, atorDto.FotoPerfilURL);
 
             //atualizar atores no banco
-            _context.Atores.Update(result);
+            _context.Atores.Update(ator);
             //salva mudanças
             _context.SaveChanges();
 
