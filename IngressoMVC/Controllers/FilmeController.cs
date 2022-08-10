@@ -96,7 +96,7 @@ namespace IngressoMVC.Controllers
             if (!ModelState.IsValid)
                 return View(result);
 
-            result.AlterarDados(filmeDto.Titulo, filmeDto.Descricao, filmeDto.ImageURL, filmeDto.Preco, filmeDto.ProdutorId, filmeDto.CinemaId, filmeDto.DataEncerramento, filmeDto.DataLancamento) ;
+            result.AlterarDados(filmeDto.Titulo, filmeDto.Descricao, filmeDto.Preco, filmeDto.ImageURL, filmeDto.ProdutorId, filmeDto.CinemaId, filmeDto.DataEncerramento, filmeDto.DataLancamento) ;
 
             _context.Update(result);
             _context.SaveChanges();

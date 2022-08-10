@@ -14,7 +14,8 @@ namespace IngressoMVC.Models
 
         }
 
-        public Filme(string titulo, string descricao, decimal preco, string imageURL, int cinemaId, int produtorId, DateTime lancamento, DateTime encerramento)
+        public Filme(string titulo, string descricao, decimal preco, string imageURL, int produtorId,
+                     int cinemaId, DateTime lancamento, DateTime encerramento)
         {
             Titulo = titulo;
             Descricao = descricao;
@@ -30,15 +31,15 @@ namespace IngressoMVC.Models
         }
 
         public int Id { get; private set; }
-        public DateTime DataCadastro { get; private set; }
-        public DateTime DataAlteracao { get; private set; }
         public string Titulo { get;  private set; }
         public string Descricao { get; private set; }
         public decimal Preco { get; private set; }
         public string ImageURL { get; private set; }
-
         public DateTime DataLancamento { get; private set; }
         public DateTime DataEncerramento { get; private set; }
+
+        public DateTime DataCadastro { get; private set; }
+        public DateTime DataAlteracao { get; private set; }
 
         #region Relacionamentos
         //RELACIONAMENTOS
@@ -54,7 +55,7 @@ namespace IngressoMVC.Models
 
         #endregion
 
-        public void AlterarDados(string titulo, string descricao, string imageURL, decimal novoPreco, int cinemaId, int produtorId, DateTime lancamento, DateTime encerramento)
+        public void AlterarDados(string titulo, string descricao, decimal novoPreco, string imageURL, int produtorId, int cinemaId, DateTime lancamento, DateTime encerramento)
         {
             if (titulo.Length < 1 || novoPreco < 0)           
                 return;
