@@ -7,8 +7,14 @@ using System.Threading.Tasks;
 namespace IngressoMVC.Models
 {
     public class Filme : IEntidade
+        
     {
-        public Filme(string titulo, string descricao, decimal preco, string imageURL, int cinemaId, int produtorId)
+        protected Filme()
+        {
+
+        }
+
+        public Filme(string titulo, string descricao, decimal preco, string imageURL, int cinemaId, int produtorId, DateTime lancamento, DateTime encerramento)
         {
             Titulo = titulo;
             Descricao = descricao;
@@ -16,6 +22,8 @@ namespace IngressoMVC.Models
             ImageURL = imageURL;
             ProdutorId = produtorId;
             CinemaId = cinemaId;
+            DataLancamento = lancamento;
+            DataEncerramento = encerramento;
 
             DataCadastro = DateTime.Now;
             DataAlteracao = DataCadastro;
@@ -28,6 +36,9 @@ namespace IngressoMVC.Models
         public string Descricao { get; private set; }
         public decimal Preco { get; private set; }
         public string ImageURL { get; private set; }
+
+        public DateTime DataLancamento { get; private set; }
+        public DateTime DataEncerramento { get; private set; }
 
         #region Relacionamentos
         //RELACIONAMENTOS
@@ -43,7 +54,7 @@ namespace IngressoMVC.Models
 
         #endregion
 
-        public void AlterarDados(string titulo, string descricao, string imageURL, decimal novoPreco, int cinemaId, int produtorId)
+        public void AlterarDados(string titulo, string descricao, string imageURL, decimal novoPreco, int cinemaId, int produtorId, DateTime lancamento, DateTime encerramento)
         {
             if (titulo.Length < 1 || novoPreco < 0)           
                 return;
@@ -54,6 +65,8 @@ namespace IngressoMVC.Models
             ImageURL = imageURL;
             CinemaId = cinemaId;
             ProdutorId = ProdutorId;
+            DataLancamento = lancamento;
+            DataEncerramento = encerramento;
 
             DataAlteracao = DateTime.Now;
         }

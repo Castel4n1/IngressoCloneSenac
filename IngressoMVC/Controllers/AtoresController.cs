@@ -3,6 +3,7 @@ using IngressoMVC.Models;
 using IngressoMVC.Models.ViewModels.RequestDTO;
 using IngressoMVC.Models.ViewModels.ResponseDTO;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
 namespace IngressoMVC.Controllers
@@ -22,18 +23,13 @@ namespace IngressoMVC.Controllers
         }
 
         public IActionResult Detalhes(int id)
-        {           
-            var result = _context.Atores.Where(at => at.Id == id)
-                .Select(at => new GetAtoresDTO()
-                {
-                    Bio = at.Bio,
-                    FotoPerfilURL = at.FotoPerfilURL,
-                    Nome = at.Nome,
-                    NomeFilmes = at.AtoresFilmes.Select(fm => fm.Filme.Titulo).ToList(),
-                    FotoURLFilmes = at.AtoresFilmes.Select(fm => fm.Filme.ImageURL).ToList()
-                }).FirstOrDefault();
+        {
+            var resultado = _context.Atores
+                .Include(af => af.AtoresFilmes)
+                .ThenInclude(f => f.Filme)
+                .FirstOrDefault(ator => ator.Id == id);
 
-            if (result == null)
+            if (resultado == null)
                 return View("NotFound");
 
             #region
@@ -63,7 +59,7 @@ namespace IngressoMVC.Controllers
              */
             #endregion
             //passar um AtorGetDTO
-            return View(result);
+            return View(resultado);
         }
 
         public IActionResult Criar()
@@ -150,6 +146,7 @@ namespace IngressoMVC.Controllers
             if (result == null)  return View("NotFound"); 
             //passar o ator para view
             return View(result);
+
         }
 
         [HttpPost, ActionName("ConfirmarDeletar")]

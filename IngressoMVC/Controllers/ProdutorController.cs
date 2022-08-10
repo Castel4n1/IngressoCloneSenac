@@ -36,7 +36,7 @@ namespace IngressoMVC.Controllers
             if (resultado == null)
                 return View();
 
-            GetProdutorDto produtor = new GetProdutorDto()
+            GetProdutoresDTO produtor = new GetProdutoresDTO()
             {
                 Nome = resultado.Nome,
                 Bio = resultado.Bio,

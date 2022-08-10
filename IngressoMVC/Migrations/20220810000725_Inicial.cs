@@ -85,6 +85,8 @@ namespace IngressoMVC.Migrations
                     Descricao = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Preco = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     ImageURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DataLancamento = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DataEncerramento = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CinemaId = table.Column<int>(type: "int", nullable: false),
                     ProdutorId = table.Column<int>(type: "int", nullable: false)
                 },

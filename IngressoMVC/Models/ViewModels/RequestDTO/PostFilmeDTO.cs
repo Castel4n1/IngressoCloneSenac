@@ -11,6 +11,8 @@ namespace IngressoMVC.Models.ViewModels.RequestDTO
         public string Descricao { get; set; }
         public decimal Preco { get; set; }
         public string ImageURL { get; set; }
+        public DateTime DataLancamento { get; private set; }
+        public DateTime DataEncerramento { get; private set; }
 
         #region Relacionamentos
         //RELACIONAMENTOS
