@@ -3,15 +3,11 @@
 @{
     ViewData["Title"] = "Lista de Filmes";
 }
-<h1>
-    Filmes - 
-    <a class="btn btn-dark" asp-action="Criar">
-        Cadastrar
-    </a>
-</h1>
+
+@*@Html.Partial("_NovoItem", "Filme")*@
+<partial name="_NovoItem" model="nameof(Filme)"/>
 
 <div class="row">
-
     @foreach (var item in Model)
     {
         <div class="col-md-4 col-xs-6 border-primary mb-3">
