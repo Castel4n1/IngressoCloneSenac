@@ -5,7 +5,7 @@
 }
 
 @*@Html.Partial("_NovoItem", "Filme")*@
-<partial name="_NovoItem" model="nameof(Filme)"/>
+@*<partial name="_NovoItem" model="nameof(Filme)"/>*@
 
 <div class="row">
     @foreach (var item in Model)
@@ -54,9 +54,9 @@
                                     <i class="fa-solid fa-eye"></i> Detalhes
                                 </a>
                                 <a class="btn btn-success text-white @((DateTime.Now > item.DataEncerramento) ? "disabled" : "")"
-                               asp-controller="Pedidos"
-                               asp-action="AdicionarCarrinho"
-                               asp-route-id="@item.Id">
+                                   asp-controller="Pedidos"
+                                   asp-action="AdicionarCarrinho"
+                                   asp-route-id="@item.Id">
                                     <i class="fa-solid fa-cart-arrow-down"></i> Adicionar (@item.Preco.ToString("c"))
                                 </a>
                             </p>

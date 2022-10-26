@@ -79,7 +79,7 @@ namespace IngressoMVC.Controllers
         {
             var result = _context.Produtores.FirstOrDefault(p => p.Id == id);
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
                 return View(result);
 
             result.AtualizarDados(produtorDto.Nome, produtorDto.Bio, produtorDto.FotoPerfilURL);
