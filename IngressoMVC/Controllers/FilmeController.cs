@@ -80,7 +80,7 @@ namespace IngressoMVC.Controllers
             }
 
             DadosDropdown();
-            return View();
+            return RedirectToAction(nameof(Index));
         }
 
         public IActionResult Atualizar(int id)

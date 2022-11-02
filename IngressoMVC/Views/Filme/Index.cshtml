@@ -6,7 +6,13 @@
 
 @*@Html.Partial("_NovoItem", "Filme")*@
 @*<partial name="_NovoItem" model="nameof(Filme)"/>*@
-
+<div class="col-md-12">
+    <a class="btn btn-outline-primary float-left center form-control" asp-action="Criar">
+        <i class="fa-solid fa-film"></i></i> Novo Filme
+    </a>
+</div>        
+<hr>
+<br>
 <div class="row">
     @foreach (var item in Model)
     {
