@@ -46,19 +46,21 @@
                             </p>
 
                         </div>
-                    </div>
+                    </div>                    
                     <div class="col-md-12">
-                        <div class="card-footer ">
+                        <div class="card-footer">
                             <p class="card-text">
-                                <a class="btn btn-outline-primary float-right" asp-action="Detalhes" asp-route-id="@item.Id">
-                                    <i class="fa-solid fa-eye"></i> Detalhes
-                                </a>
+                                    <a class="btn btn-outline-primary float-right center" asp-action="Detalhes" asp-route-id="@item.Id">
+                                        <i class="fa-solid fa-eye"></i> Detalhes
+                                    </a>
+                                @*
                                 <a class="btn btn-success text-white @((DateTime.Now > item.DataEncerramento) ? "disabled" : "")"
                                    asp-controller="Pedidos"
                                    asp-action="AdicionarCarrinho"
                                    asp-route-id="@item.Id">
                                     <i class="fa-solid fa-cart-arrow-down"></i> Adicionar (@item.Preco.ToString("c"))
                                 </a>
+                                *@
                             </p>
                         </div>
                     </div>
