@@ -68,7 +68,12 @@ namespace IngressoMVC.Controllers
 
             foreach (var categoriaId in filmeDto.CategoriasId)
             {
-                var novaCategoria = new FilmeCategoria(filme.Id, categoriaId);
+                var novaCategoria = new FilmeCategoria
+                (
+                    filme.Id, 
+                    categoriaId
+                );
+                
                 _context.FilmesCategorias.Add(novaCategoria);
                 _context.SaveChanges();
             }
@@ -79,7 +84,6 @@ namespace IngressoMVC.Controllers
                 _context.SaveChanges();
             }
 
-            DadosDropdown();
             return RedirectToAction(nameof(Index));
         }
 
