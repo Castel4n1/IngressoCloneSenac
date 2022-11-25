@@ -6,6 +6,7 @@ namespace IngressoMVC.Models.ViewModels.RequestDTO
 {
     public class PostFilmeDTO
     {
+        public int Id {get; set;}
         [Display(Name = "Título")]
         [Required(ErrorMessage = "O título é obrigatório!")]
         public string Titulo { get; set; }
